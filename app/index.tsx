@@ -1,4 +1,4 @@
-import LoginScreen from "./LoginScreen";
+import LoginScreen from "./screens/authentication/LoginScreen";
 
 export default function Index() {
   return (
