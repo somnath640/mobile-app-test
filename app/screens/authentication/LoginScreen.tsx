@@ -45,9 +45,11 @@ const LoginScreen: React.FC = () => {
 
                     <PrimaryButton title="Fill demo credentials" onPress={fillDemo} />
 
-                    <Footer />
+                    
                 </View>
+                
             </ScrollView>
+            <Footer />
         </SafeAreaView>
     );
 };
