@@ -1,3 +1,4 @@
+import { router, useNavigation } from 'expo-router';
 import React, { useState } from 'react';
 import { SafeAreaView, ScrollView, View } from 'react-native';
 import InputField from '../../components/InputField';
@@ -13,12 +14,16 @@ const LoginScreen: React.FC = () => {
     const [username, setUsername] = useState<string>('');
     const [password, setPassword] = useState<string>('');
 
+    const navigator = useNavigation()
+
     const handleLogin = () => {
         if (!username || !password) {
             alert('Please enter username and password.');
             return;
         }
-        alert(`Logging in as ${username}`);
+        // alert(`Logging in as ${username}`);
+        // navigator.navigate('(app)')
+        router.push('Home')
     };
 
     const fillDemo = () => {

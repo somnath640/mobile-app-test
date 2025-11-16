@@ -5,7 +5,7 @@ import Cards from '../components/Cards'
 import ProgressBar from '../components/ProgressBar'
 import ScrollCards from '../components/ScrollCards'
 
-const HomeScreen = () => {
+const Home = () => {
   return (
     <ScrollView className='flex-1 p-4'>
       <View className='flex-1 p-4 overflow-auto'>
@@ -51,39 +51,27 @@ const HomeScreen = () => {
         <View className='mt-4 rounded-md shadow-md bg-white p-4'>
           <View className='flex-row justify-between items-center'>
             <View>
-              <Text>Sales Targets</Text>
-              <Text>November</Text>
+              <Text>Today's Schedule (4 visits)</Text>
             </View>
             <TouchableOpacity className='bg-transparent'>
-              <Text>View Details</Text>
+              <Text>View Route</Text>
             </TouchableOpacity>
           </View>
           <View className='flex-row gap-4 overflow-auto mt-4'>
             <ScrollView horizontal>
-              <ScrollCards title="Card 1" description="This is the first card" borderColor="blue" />
-              <ScrollCards title="Card 1" description="This is the first card" borderColor="blue" />
-              <ScrollCards title="Card 1" description="This is the first card" borderColor="blue" />
-              <ScrollCards title="Card 1" description="This is the first card" borderColor="blue" />
-              <ScrollCards title="Card 1" description="This is the first card" borderColor="blue" />
-              <ScrollCards title="Card 1" description="This is the first card" borderColor="blue" />
-              <ScrollCards title="Card 1" description="This is the first card" borderColor="blue" />
-              <ScrollCards title="Card 1" description="This is the first card" borderColor="blue" />
-              <ScrollCards title="Card 1" description="This is the first card" borderColor="blue" />
-              <ScrollCards title="Card 1" description="This is the first card" borderColor="blue" />
-              <ScrollCards title="Card 1" description="This is the first card" borderColor="blue" />
-              <ScrollCards title="Card 1" description="This is the first card" borderColor="blue" />
-              <ScrollCards title="Card 1" description="This is the first card" borderColor="blue" />
-              <ScrollCards title="Card 1" description="This is the first card" borderColor="blue" />
-              <ScrollCards title="Card 1" description="This is the first card" borderColor="blue" />
-              <ScrollCards title="Card 1" description="This is the first card" borderColor="blue" />
-              <ScrollCards title="Card 1" description="This is the first card" borderColor="blue" />
-              <ScrollCards title="Card 1" description="This is the first card" borderColor="blue" />
-              <ScrollCards title="Card 1" description="This is the first card" borderColor="blue" />
-              <ScrollCards title="Card 1" description="This is the first card" borderColor="blue" />
-              <ScrollCards title="Card 1" description="This is the first card" borderColor="blue" />
-              <ScrollCards title="Card 1" description="This is the first card" borderColor="blue" />
-              <ScrollCards title="Card 1" description="This is the first card" borderColor="blue" />
-              <ScrollCards title="Card 1" description="This is the first card" borderColor="blue" />
+              <ScrollCards
+  name="Dr. Sharma"
+  type="Cardiologist"
+  tier="Gold Tier"
+  time="09.00 AM"
+  core="Core"
+  address="ABC"
+  min="15 min"
+  km="2.5 km"
+  rx="High"
+  borderColor="#4CAF50"
+/>
+
             </ScrollView>
           </View>
         </View>
@@ -165,6 +153,6 @@ const HomeScreen = () => {
   )
 }
 
-export default HomeScreen
+export default Home
 
 const styles = StyleSheet.create({})
