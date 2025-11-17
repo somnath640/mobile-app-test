@@ -1,7 +1,12 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-const ProgressBar = ({ current, total }) => {
+type ProgressBarProps = {
+  current: number;
+  total: number;
+};
+
+const ProgressBar: React.FC<ProgressBarProps> = ({ current, total }) => {
   const percentage = Math.round((current / total) * 100);
 
   return (

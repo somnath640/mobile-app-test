@@ -1,18 +1,32 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-const ScrollCards = ({ 
-  name, 
-  type, 
-  tier, 
-  time, 
-  core, 
-  address, 
-  min, 
-  km, 
-  rx, 
-  borderColor 
-}) => {
+type ScrollCardProps = {
+  name: string;
+  type?: string;
+  tier?: string;
+  time?: string;
+  core?: string;
+  address?: string;
+  min?: string | number;
+  km?: string;
+  rx?: string;
+  borderColor?: string;
+};
+
+const ScrollCards: React.FC<ScrollCardProps> = (props: ScrollCardProps) => {
+  const {
+    name,
+    type,
+    tier,
+    time,
+    core,
+    address,
+    min,
+    km,
+    rx,
+    borderColor,
+  } = props;
   return (
     <View style={[styles.card, { borderLeftColor: borderColor }]}>
       

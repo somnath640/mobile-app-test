@@ -1,21 +1,24 @@
 import { LinearGradient } from "expo-linear-gradient";
 import React, { useState } from "react";
 import {
-    SafeAreaView,
-    ScrollView,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from "react-native";
 import COLORS from "../../services/LupinColors";
 import {
-    IconBox,
-    IconMapPin,
-    IconPhoneCall,
-    IconRupee,
-    IconSparkles,
-    IconTinyTrendUp,
+  IconBox,
+  IconCalendar,
+  IconCheckCircle,
+  IconClipboard,
+  IconMapPin,
+  IconPhoneCall,
+  IconRupee,
+  IconSparkles,
+  IconTinyTrendUp,
 } from "../../services/LupinIcons";
 
 type TabKey = "leaderboard" | "products" | "territory";
@@ -111,6 +114,7 @@ const AnalyticsReportsScreen: React.FC = () => {
             title="Call Performance"
             value="142/160"
             bottomLabel="89% achieved"
+            delta="+12%"
           />
           <MetricCard
             icon={<IconMapPin size={18} color={COLORS.blue[600]} />}
@@ -118,6 +122,7 @@ const AnalyticsReportsScreen: React.FC = () => {
             title="Territory Coverage"
             value="87%"
             bottomLabel="87% achieved"
+            delta="+5%"
           />
           <MetricCard
             icon={<IconBox size={18} color={COLORS.orange[600]} />}
@@ -125,6 +130,7 @@ const AnalyticsReportsScreen: React.FC = () => {
             title="Sample Distribution"
             value="320/400"
             bottomLabel="80% achieved"
+            delta="+8%"
           />
           <MetricCard
             icon={<IconRupee size={18} color={COLORS.red[600]} />}
@@ -132,6 +138,7 @@ const AnalyticsReportsScreen: React.FC = () => {
             title="Expense Compliance"
             value="₹18.4k/₹25k"
             bottomLabel="74% achieved"
+            delta="On track"
           />
         </View>
 
@@ -154,6 +161,14 @@ const AnalyticsReportsScreen: React.FC = () => {
           {activeTab === "products" && <ProductsTab />}
           {activeTab === "territory" && <TerritoryTab />}
         </View>
+
+        
+
+        {/* Recent Achievements (kept separate from tabs) */}
+        <RecentAchievements />
+
+        {/* Monthly Goals Progress (last section) */}
+        <MonthlyGoals />
       </ScrollView>
     </SafeAreaView>
   );
@@ -171,6 +186,7 @@ type MetricCardProps = {
   title: string;
   value: string;
   bottomLabel: string;
+  delta?: string;
 };
 
 const MetricCard: React.FC<MetricCardProps> = ({
@@ -179,12 +195,18 @@ const MetricCard: React.FC<MetricCardProps> = ({
   title,
   value,
   bottomLabel,
+  delta,
 }) => (
   <View style={styles.metricCard}>
     <View style={styles.metricTopRow}>
       <View style={[styles.metricIconBubble, { backgroundColor: iconBg }]}>
         {icon}
       </View>
+      {delta && (
+        <View style={styles.metricDeltaPill}>
+          <Text style={styles.metricDeltaText}>{delta}</Text>
+        </View>
+      )}
     </View>
     <View style={{ marginTop: 8 }}>
       <Text style={styles.metricTitle}>{title}</Text>
@@ -203,23 +225,24 @@ type WeeklyBarProps = {
   calls: string;
 };
 
-const WeeklyBar: React.FC<WeeklyBarProps> = ({ label, percent, calls }) => (
-  <View style={styles.weekRow}>
-    <View style={styles.weekHeaderRow}>
-      <Text style={styles.weekLabel}>{label}</Text>
-      <Text style={styles.weekPercent}>{percent}%</Text>
+const WeeklyBar: React.FC<WeeklyBarProps> = ({ label, percent, calls }) => {
+  // dynamic color: under/at 100 -> blue, over 100 -> green
+  const fillColor = percent >= 100 ? COLORS.emerald[600] : COLORS.blue[600];
+  const widthPct = `${Math.min(percent, 120)}%`;
+
+  return (
+    <View style={styles.weekRow}>
+      <View style={styles.weekHeaderRow}>
+        <Text style={styles.weekLabel}>{label}</Text>
+        <Text style={styles.weekPercent}>{percent}%</Text>
+      </View>
+      <View style={styles.weekBarTrack}>
+        <View style={[styles.weekBarFill, { width: (widthPct as any), backgroundColor: fillColor }]} />
+      </View>
+      <Text style={styles.weekCalls}>{calls}</Text>
     </View>
-    <View style={styles.weekBarTrack}>
-      <View
-        style={[
-          styles.weekBarFill,
-          { width: `${Math.min(percent, 120)}%` },
-        ]}
-      />
-    </View>
-    <Text style={styles.weekCalls}>{calls}</Text>
-  </View>
-);
+  );
+};
 
 type TabProps = {
   activeTab: TabKey;
@@ -303,18 +326,7 @@ const LeaderboardTab: React.FC = () => (
       />
     </View>
 
-    {/* Achievements */}
-    <View style={styles.achievementsCard}>
-      <Text style={styles.sectionTitle}>Recent Achievements</Text>
-      <View style={styles.achievementsRow}>
-        <AchievementBadge label="Top Performer" icon="🏆" />
-        <AchievementBadge label="100 Calls" icon="📞" />
-        <AchievementBadge label="Gold Coverage" icon="⭐" />
-        <AchievementBadge label="Rising Star" icon="📈" />
-        <AchievementBadge label="Consistency" icon="💪" />
-        <AchievementBadge label="7 Day Streak" icon="🔥" />
-      </View>
-    </View>
+    {/* Achievements: moved out into RecentAchievements component (rendered separately) */}
   </View>
 );
 
@@ -359,6 +371,63 @@ const AchievementBadge: React.FC<{ label: string; icon: string }> = ({
     <Text style={styles.achievementText}>{label}</Text>
   </View>
 );
+
+/* ---------- Recent Achievements (separate component) ---------- */
+const RecentAchievements: React.FC = () => {
+  const items = [
+    { key: 'top', label: 'Top Performer', icon: <IconCheckCircle size={20} color={COLORS.yellow[500]} /> },
+    { key: 'calls', label: '100 Calls', icon: <IconPhoneCall size={20} color={COLORS.blue[600]} /> },
+    { key: 'gold', label: 'Gold Coverage', icon: <IconSparkles size={20} color={COLORS.orange[600]} /> },
+    { key: 'rising', label: 'Rising Star', icon: <IconTinyTrendUp size={20} color={COLORS.green[600]} /> },
+    { key: 'consistency', label: 'Consistency', icon: <IconClipboard size={20} color={COLORS.green[600]} /> },
+    { key: 'streak', label: '7 Day Streak', icon: <IconCalendar size={20} color={COLORS.green[600]} /> },
+  ];
+
+  return (
+    <View style={styles.achievementsCard}>
+      <Text style={styles.sectionTitle}>Recent Achievements</Text>
+      <View style={styles.achievementsRow}>
+        {items.map((it) => (
+          <View key={it.key} style={styles.achievementBadge}>
+            <View style={{ marginBottom: 8 }}>{it.icon}</View>
+            <Text style={styles.achievementText}>{it.label}</Text>
+          </View>
+        ))}
+      </View>
+    </View>
+  );
+};
+
+/* ---------- Monthly Goals Progress (last section) ---------- */
+const MonthlyGoals: React.FC = () => {
+  const goals = [
+    { key: 'calls', label: 'Complete 160 calls', current: 142, total: 160 },
+    { key: 'territory', label: 'Cover 90% territory', current: 87, total: 90 },
+    { key: 'samples', label: 'Distribute 400 samples', current: 320, total: 400 },
+  ];
+
+  return (
+    <View style={styles.goalsCard}>
+      <Text style={styles.sectionTitle}>Monthly Goals Progress</Text>
+      <View style={{ marginTop: 12 }}>
+        {goals.map((g) => {
+          const pct = Math.min(100, Math.round((g.current / g.total) * 100));
+          return (
+            <View key={g.key} style={styles.goalRow}>
+              <Text style={styles.goalLabel}>{g.label}</Text>
+              <View style={styles.goalRightRow}>
+                <View style={styles.track}>
+                  <View style={[styles.fill, { width: `${pct}%` }]} />
+                </View>
+                <Text style={styles.goalCount}>{`${g.current}/${g.total}`}</Text>
+              </View>
+            </View>
+          );
+        })}
+      </View>
+    </View>
+  );
+};
 
 /* ---------- Products Tab ---------- */
 
@@ -648,21 +717,37 @@ const styles = StyleSheet.create({
     width: "48%",
     backgroundColor: COLORS.utility.white,
     borderRadius: 16,
-    padding: 12,
+    padding: 14,
     borderWidth: 1,
     borderColor: COLORS.gray[200],
+    marginBottom: 12,
   },
   metricTopRow: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
   },
+  metricDeltaPill: {
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: 999,
+    backgroundColor: 'rgba(2,6,23,0.05)',
+  },
+  metricDeltaText: {
+    fontSize: 12,
+    color: COLORS.gray[700],
+    fontWeight: '600',
+  },
   metricIconBubble: {
-    width: 30,
-    height: 30,
+    width: 36,
+    height: 36,
     borderRadius: 999,
     alignItems: "center",
     justifyContent: "center",
+    shadowColor: '#000',
+    shadowOpacity: 0.06,
+    shadowOffset: { width: 0, height: 1 },
+    shadowRadius: 4,
   },
   metricTitle: {
     fontSize: 13,
@@ -730,7 +815,13 @@ const styles = StyleSheet.create({
   },
   weekBarFill: {
     height: "100%",
-    backgroundColor: COLORS.blue[600],
+  },
+  weekBarOverlay: {
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    width: 2,
+    backgroundColor: 'rgba(0,0,0,0.06)'
   },
   weekCalls: {
     fontSize: 11,
@@ -826,28 +917,78 @@ const styles = StyleSheet.create({
   },
   achievementsCard: {
     marginTop: 14,
-    paddingTop: 10,
+    padding: 12,
+    borderRadius: 12,
+    backgroundColor: '#fff7fb',
+    borderWidth: 1,
+    borderColor: COLORS.gray[200],
   },
   achievementsRow: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    gap: 8,
-    marginTop: 8,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+    marginTop: 12,
   },
   achievementBadge: {
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: "#FEF2FF",
-    borderRadius: 12,
-    paddingHorizontal: 10,
-    paddingVertical: 6,
+    width: '30%',
+    minWidth: 100,
+    paddingVertical: 12,
+    paddingHorizontal: 8,
+    borderRadius: 10,
+    backgroundColor: COLORS.utility.white,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 10,
   },
   achievementIcon: {
-    marginRight: 4,
+    fontSize: 20,
+    marginBottom: 8,
   },
   achievementText: {
-    fontSize: 11,
+    fontSize: 12,
     color: COLORS.gray[700],
+    textAlign: 'center',
+  },
+
+  /* Monthly Goals */
+  goalsCard: {
+    backgroundColor: COLORS.utility.white,
+    borderRadius: 18,
+    padding: 14,
+    borderWidth: 1,
+    borderColor: COLORS.gray[200],
+    marginTop: 14,
+    marginBottom: 12,
+  },
+  goalRow: {
+    marginBottom: 12,
+  },
+  goalLabel: {
+    fontSize: 13,
+    color: COLORS.gray[700],
+  },
+  goalRightRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginTop: 6,
+  },
+  track: {
+    flex: 1,
+    height: 8,
+    borderRadius: 999,
+    backgroundColor: COLORS.gray[200],
+    marginRight: 10,
+    overflow: 'hidden',
+  },
+  fill: {
+    height: '100%',
+    backgroundColor: '#020014',
+  },
+  goalCount: {
+    fontSize: 12,
+    color: COLORS.gray[800],
+    fontWeight: '600',
   },
 
   /* Products tab */

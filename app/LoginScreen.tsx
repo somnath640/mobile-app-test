@@ -8,7 +8,7 @@ const LoginScreen = () => {
     // const navigation = useNavigation();
     const onPressLogin = () => {
         // navigation.navigate('pages')
-        router.push('Home')
+        router.push('/Home');
     }
     return (
         <View className='flex justify-center items-center h-full'>
