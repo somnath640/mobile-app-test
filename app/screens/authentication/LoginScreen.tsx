@@ -21,9 +21,7 @@ const LoginScreen: React.FC = () => {
             alert('Please enter username and password.');
             return;
         }
-        // alert(`Logging in as ${username}`);
-        // navigator.navigate('(app)')
-        router.push('/Home');
+        router.push('/Home')
     };
 
     const fillDemo = () => {
