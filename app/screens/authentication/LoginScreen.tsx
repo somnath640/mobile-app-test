@@ -23,7 +23,7 @@ const LoginScreen: React.FC = () => {
         }
         // alert(`Logging in as ${username}`);
         // navigator.navigate('(app)')
-        router.push('Home')
+        router.push('/Home');
     };
 
     const fillDemo = () => {
