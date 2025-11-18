@@ -2,6 +2,9 @@ import React, { useState } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import Home from './(app)/Home'
 import BottomNavigation from './components/BottomNavigation'
+import AnalyticsReportsScreen from './screens/analytics-reports/AnalyticsReportsScreen'
+import HCPManagementScreen from './screens/hcp-tab-screen/HCPManagementScreen'
+import RouteDashboardScreen from './screens/route-tab-screen/RouteDashboardScreen'
 
 export default function BottomNavPage() {
   const [active, setActive] = useState<string>('home')
@@ -12,7 +15,11 @@ export default function BottomNavPage() {
         <View style={styles.content}>
           {active === 'home' ? (
             <Home />
-          ) : (
+          ) : active === 'AnalyticsReportsScreen' ? (
+            <AnalyticsReportsScreen />
+          )  : active == 'HCPManagementScreen' ? (
+            <HCPManagementScreen />
+          ) : active == 'RouteDashboardScreen' ? (<RouteDashboardScreen />)  : (
             <View style={{ alignItems: 'center', justifyContent: 'center', flex: 1 }}>
               <Text style={styles.h1}>{active.charAt(0).toUpperCase() + active.slice(1)}</Text>
               <Text style={styles.p}>Placeholder for the {active} screen</Text>

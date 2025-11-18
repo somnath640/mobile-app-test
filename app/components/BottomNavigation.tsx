@@ -5,10 +5,10 @@ import { IconHome, IconPhoneCall, IconRoute, IconTrendUp, IconUserCircle } from 
 
 const items = [
   { key: 'home', label: 'Home', Icon: IconHome },
-  { key: 'route', label: 'Route', Icon: IconRoute },
-  { key: 'hcps', label: 'HCPs', Icon: IconUserCircle },
+  { key: 'RouteDashboardScreen', label: 'Route', Icon: IconRoute },
+  { key: 'HCPManagementScreen', label: 'HCPs', Icon: IconUserCircle },
   { key: 'calls', label: 'Calls', Icon: IconPhoneCall },
-  { key: 'analytics', label: 'Analytics', Icon: IconTrendUp },
+  { key: 'AnalyticsReportsScreen', label: 'Analytics', Icon: IconTrendUp },
 ]
 
 const BottomNavigation: React.FC<{ onChange?: (k: string) => void }> = ({ onChange }) => {
