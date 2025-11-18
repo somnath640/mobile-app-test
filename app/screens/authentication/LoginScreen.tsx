@@ -21,7 +21,7 @@ const LoginScreen: React.FC = () => {
             alert('Please enter username and password.');
             return;
         }
-        router.push('/Home')
+        router.replace('/bottom-nav');
     };
 
     const fillDemo = () => {
