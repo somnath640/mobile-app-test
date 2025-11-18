@@ -23,7 +23,8 @@ const LoginScreen: React.FC = () => {
         }
         // alert(`Logging in as ${username}`);
         // navigator.navigate('(app)')
-        router.push('/Home');
+        // After successful login, replace navigation stack with bottom navigation as root
+        router.replace('/bottom-nav');
     };
 
     const fillDemo = () => {
