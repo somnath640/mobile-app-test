@@ -4,17 +4,19 @@ import { StyleSheet, Text, View } from 'react-native';
 type ProgressBarProps = {
   current: number;
   total: number;
+  label?: string;
+  dotColor?: string;
 };
 
-const ProgressBar: React.FC<ProgressBarProps> = ({ current, total }) => {
+const ProgressBar: React.FC<ProgressBarProps> = ({ current, total, label = 'Progress', dotColor = 'blue' }) => {
   const percentage = Math.round((current / total) * 100);
 
   return (
     <View style={styles.container}>
       {/* Top Row: Dot + Text on left, Progress on right */}
       <View style={styles.row}>
-        <View style={styles.dot} />
-        <Text style={styles.label}>Progress</Text>
+        <View style={[styles.dot, { backgroundColor: dotColor }]} />
+        <Text style={styles.label}>{label}</Text>
         <Text style={styles.percentage}>{`${current}/${total} (${percentage}%)`}</Text>
       </View>
 

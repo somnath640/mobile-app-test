@@ -1,11 +1,11 @@
-import AnalyticsReportsScreen from "./screens/analytics-reports/AnalyticsReportsScreen";
+import LoginScreen from "./screens/authentication/LoginScreen";
 
 export default function Index() {
   return (
-    //  <LoginScreen />
+     <LoginScreen />
     //  <DailyPlanningScreen />
     //  <HCPManagementScreen />
     // <AddHCPModal visible={true} onClose={() => {}} />
-    <AnalyticsReportsScreen />
+    // <AnalyticsReportsScreen />
   );
 }
