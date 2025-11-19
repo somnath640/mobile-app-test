@@ -1,26 +1,31 @@
 import { LinearGradient } from 'expo-linear-gradient'
-import React from 'react'
+import React, { useState } from 'react'
 import { Pressable, ScrollView as RNScroll, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 import ProgressBar from '../components/ProgressBar'
 import ScrollCards from '../components/ScrollCards'
 import COLORS from '../services/LupinColors'
 import {
-  IconBox,
-  IconButtonCheck,
-  IconCalendar,
-  IconCheckCircle,
-  IconClipboard,
-  IconMapPin,
-  IconPhoneCall,
-  IconRupee,
-  IconSparkles,
-  IconUserCircle
+	IconBox,
+	IconButtonCheck,
+	IconCalendar,
+	IconCheckCircle,
+	IconClipboard,
+	IconMapPin,
+	IconPhoneCall,
+	IconRupee,
+	IconSparkles,
+	IconUserCircle
 } from '../services/LupinIcons'
 
 const Home = () => {
+	const [open, setOpen] = useState(false);
 	return (
 		<RNScroll style={styles.screen} contentContainerStyle={styles.container}>
+			 {/* <View style={{ flex: 1 }}>
+      <Button title="Open HCP Modal" onPress={() => setOpen(true)} />
+      <ModalHcpProfile visible={open} onClose={() => setOpen(false)} />
+    </View> */}
 			{/* Header */}
 			<View style={styles.headerRow}>
 				<View>
