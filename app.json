@@ -12,6 +12,7 @@
       "supportsTablet": true
     },
     "android": {
+      "package": "poc.app.test",
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
         "foregroundImage": "./assets/images/android-icon-foreground.png",
@@ -44,6 +45,12 @@
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "28085910-ab6a-4ea6-b290-7c0ee78de42b"
+      }
     }
   }
 }
