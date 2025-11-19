@@ -21,9 +21,6 @@ const LoginScreen: React.FC = () => {
             alert('Please enter username and password.');
             return;
         }
-        // alert(`Logging in as ${username}`);
-        // navigator.navigate('(app)')
-        // After successful login, replace navigation stack with bottom navigation as root
         router.replace('/bottom-nav');
     };
 

@@ -1,8 +1,9 @@
-import LoginScreen from "./screens/authentication/LoginScreen";
+import Rootapp from "./App";
 
 export default function Index() {
   return (
-     <LoginScreen />
+     <Rootapp />
+    //  <LoginScreen />
     //  <DailyPlanningScreen />
     //  <HCPManagementScreen />
     // <AddHCPModal visible={true} onClose={() => {}} />
