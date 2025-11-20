@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
-import Home from './(app)/Home'
 import BottomNavigation from './components/BottomNavigation'
 import AnalyticsReportsScreen from './screens/analytics-reports/AnalyticsReportsScreen'
+import SampleTracking from './screens/field-activities/sample-tracking'
 import HCPManagementScreen from './screens/hcp-tab-screen/HCPManagementScreen'
 import RouteDashboardScreen from './screens/route-tab-screen/RouteDashboardScreen'
 
@@ -14,7 +14,7 @@ export default function BottomNavPage() {
 
         <View style={styles.content}>
           {active === 'home' ? (
-            <Home />
+            <SampleTracking />
           ) : active === 'AnalyticsReportsScreen' ? (
             <AnalyticsReportsScreen />
           )  : active == 'HCPManagementScreen' ? (
